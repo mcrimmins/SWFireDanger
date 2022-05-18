@@ -24,7 +24,8 @@ states <- map_data("state")
 #####
 # load spatial data
 # psa zones
-psa<-rgdal::readOGR(dsn="/home/crimmins/RProjects/FireClimate/monsoonClimo/shapes", layer="National_Predictive_Service_Areas_(PSA)_Boundaries")
+#psa<-rgdal::readOGR(dsn="/home/crimmins/RProjects/FireClimate/monsoonClimo/shapes", layer="National_Predictive_Service_Areas_(PSA)_Boundaries")
+psa<-rgdal::readOGR(dsn="/home/crimmins/RProjects/FireDangerPlots/shapefiles", layer="National_PSA_Current_20220112")
 sw_psa<-subset(psa, GACCName=="Southwest Coordination Center")
 # get psa centroids for factor order
 sw_psaDF<- cbind.data.frame(sw_psa, rgeos::gCentroid(sw_psa,byid=TRUE))
@@ -227,7 +228,7 @@ for(i in 1:length(PSAlist)){
     geom_polygon(data = sw_psa_df, aes(x = long, y = lat, group = group), fill="lightgrey", color="grey", alpha=0.8)  + # get the state border back on top
     geom_polygon(data = keyPSA_df, aes(x = long, y = lat, group = group), fill="powderblue", color=NA, alpha=0.8) +
      #coord_fixed(xlim=c(out$meta$ll[1]-zoomLev, out$meta$ll[1]+zoomLev), ylim=c(out$meta$ll[2]-zoomLev, out$meta$ll[2]+zoomLev), ratio = 1) +
-    coord_fixed(xlim=c(-115, -99.75), ylim=c(28.75, 37.5), ratio = 1) +
+    coord_fixed(xlim=c(-115, -102.5), ylim=c(31, 37.5), ratio = 1) +
     geom_point(data = stations, aes(x = longitude, y = latitude), size=0.5, color='red')+
     theme_bw(base_size=5)+
     theme(axis.title.x=element_blank(),
@@ -237,21 +238,24 @@ for(i in 1:length(PSAlist)){
           axis.text.y=element_blank(),
           axis.ticks.y=element_blank())
   
-  g <- ggplotGrob(insetmap)
+  #g <- ggplotGrob(insetmap)
   
-  pERC<-pERC + annotation_custom(grob = g, xmin = as.Date(paste0(format(Sys.Date(),"%Y"),"-11-01")), xmax = Inf, ymin = p97erc, ymax = Inf)+
+  pERC<-pERC + 
+    #annotation_custom(grob = g, xmin = as.Date(paste0(format(Sys.Date(),"%Y"),"-11-01")), xmax = Inf, ymin = p97erc, ymax = Inf)+
     labs(caption=paste0("Updated: ",format(Sys.time(), "%Y-%m-%d")," (current through ",currERC$date[nrow(currERC)],")",
                         "\nClimatology from FireFamily Plus Statistical Summary Report\nNFDRS Data Source: famprod.nwcg.gov/wims"))
   
-  pBI<-pBI + annotation_custom(grob = g, xmin = as.Date(paste0(format(Sys.Date(),"%Y"),"-11-01")), xmax = Inf, ymin = p97bi, ymax = Inf)+
+  pBI<-pBI + 
+    #annotation_custom(grob = g, xmin = as.Date(paste0(format(Sys.Date(),"%Y"),"-11-01")), xmax = Inf, ymin = p97bi, ymax = Inf)+
     labs(caption=paste0("Updated: ",format(Sys.time(), "%Y-%m-%d")," (current through ",currERC$date[nrow(currERC)],")",
                         "\nClimatology from FireFamily Plus Statistical Summary Report\nNFDRS Data Source: famprod.nwcg.gov/wims"))
-  
   
   # write out ERC file
   png(paste0("/home/crimmins/RProjects/FireDangerPlots/plots/",PSAlist[i],"_ERC.png"), width = 9, height = 6, units = "in", res = 300L)
   #grid.newpage()
-  print(pERC, newpage = FALSE)
+    subvp <- grid::viewport(width = 0.16, height = 0.16, x = 0.91, y = 0.875)
+    print(pERC, newpage = FALSE)
+    print(insetmap, vp = subvp)
   dev.off()
     # add logos
     # Call back the plot
@@ -268,7 +272,9 @@ for(i in 1:length(PSAlist)){
   # write out BI file
   png(paste0("/home/crimmins/RProjects/FireDangerPlots/plots/",PSAlist[i],"_BI.png"), width = 9, height = 6, units = "in", res = 300L)
   #grid.newpage()
-  print(pBI, newpage = FALSE)
+    subvp <- grid::viewport(width = 0.16, height = 0.16, x = 0.91, y = 0.875)
+    print(pBI, newpage = FALSE)
+    print(insetmap, vp = subvp)
   dev.off()
     # add logos
     # Call back the plot
@@ -283,7 +289,6 @@ for(i in 1:length(PSAlist)){
     # ----
 
 }
-
 
 # create Website with markdown ----
 library(knitr)
