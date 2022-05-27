@@ -71,7 +71,7 @@ for(i in 1:length(PSAlist)){
     stations[[j]]<-currYear[1,c("sta_nm","latitude","longitude")]
     
     # download XML for forecast observations
-    url<-paste0("https://famprod.nwcg.gov/wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&type=F&priority=&fmodel=16Y&sort=asc&ndays=7&start=",format(Sys.Date(),"%d-%b-%Y"))
+    url<-paste0("https://famprod.nwcg.gov/wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&type=F&priority=&fmodel=16Y&sort=asc&ndays=7&start=",format(Sys.Date()-1,"%d-%b-%Y"))
     xData <- getURL(url)
     xmldoc <- xmlParse(xData)
     currYear <- xmlToDataFrame(xData)
