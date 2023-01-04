@@ -50,9 +50,13 @@ for(i in 1:length(PSAlist)){
   # station list
   stations<-list()
   
+  # curr year
+  #format(Sys.Date(),"%Y")
+  
+  
   for(j in 1:nrow(PSAtemp)){
     # download XML for curr yr observations
-    url<-paste0("https://famprod.nwcg.gov/wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&sig=&user=&type=N&start=01-Jan-2022&end=31-Dec-2022&time=&priority=&fmodel=16Y&sort=asc&ndays=")
+    url<-paste0("https://famprod.nwcg.gov/wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&sig=&user=&type=N&start=01-Jan-",format(Sys.Date(),"%Y"),"&end=31-Dec-",format(Sys.Date(),"%Y"),"&time=&priority=&fmodel=16Y&sort=asc&ndays=")
     xData <- getURL(url)
     xmldoc <- xmlParse(xData)
     currYear <- xmlToDataFrame(xData)
