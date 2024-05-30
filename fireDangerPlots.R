@@ -265,7 +265,7 @@ for(i in 1:length(PSAlist)){
     # Call back the plot
     plot <- image_read(paste0("/home/crimmins/RProjects/FireDangerPlots/plots/",PSAlist[i],"_ERC.png"))
     # And bring in a logo
-    logo_raw <- image_read("/home/crimmins/RProjects/FireClimate/BurnPeriodTracker/CLIMAS_UACOOP_SWCC_horiz.png") 
+    logo_raw <- image_read("/home/crimmins/RProjects/BurnPeriodTracker/CLIMAS_UACOOP_SWCC_horiz.png") 
     logo <- image_resize(logo_raw, geometry_size_percent(width=65,height = 65))
     # Stack them on top of each other
     final_plot <- image_composite(plot, logo, offset = "+130+1600")
@@ -284,7 +284,7 @@ for(i in 1:length(PSAlist)){
     # Call back the plot
     plot <- image_read(paste0("/home/crimmins/RProjects/FireDangerPlots/plots/",PSAlist[i],"_BI.png"))
     # And bring in a logo
-    logo_raw <- image_read("/home/crimmins/RProjects/FireClimate/BurnPeriodTracker/CLIMAS_UACOOP_SWCC_horiz.png") 
+    logo_raw <- image_read("/home/crimmins/RProjects/BurnPeriodTracker/CLIMAS_UACOOP_SWCC_horiz.png") 
     logo <- image_resize(logo_raw, geometry_size_percent(width=65,height = 65))
     # Stack them on top of each other
     final_plot <- image_composite(plot, logo, offset = "+130+1600")
