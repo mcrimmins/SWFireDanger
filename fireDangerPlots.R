@@ -154,7 +154,7 @@ for(i in 1:length(PSAlist)){
     #geom_line(data=temp, aes(date,`ERC-Y`, color=ERC_stat), size=1.5)+
     
     scale_color_manual(values = c("goldenrod1","royalblue","limegreen","red","blue"))+
-    ggtitle(paste0("Energy Release Component: PSA ", PSAlist[i]))+
+    ggtitle(paste0("Energy Release Component (Fuel Model Y): PSA ", PSAlist[i]))+
     geom_hline(yintercept = p90erc, size=0.25, color="grey50")+
     geom_text(aes(x=as.Date(paste0(format(Sys.Date(),"%Y"),"-01-01"))+10, label="90%", y=p90erc+1.75),
               colour="grey50", size=3)+
@@ -201,7 +201,7 @@ for(i in 1:length(PSAlist)){
     #geom_line(data=temp, aes(date,`ERC-Y`, color=ERC_stat), size=1.5)+
     
     scale_color_manual(values = c("goldenrod1","royalblue","limegreen","red","blue"))+
-    ggtitle(paste0("Burning Index: PSA ", PSAlist[i]))+
+    ggtitle(paste0("Burning Index (Fuel Model Y): PSA ", PSAlist[i]))+
     geom_hline(yintercept = p90bi, size=0.25, color="grey50")+
     geom_text(aes(x=as.Date(paste0(format(Sys.Date(),"%Y"),"-01-01"))+10, label="90%", y=p90bi+1.75),
               colour="grey50", size=3)+
