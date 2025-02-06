@@ -56,7 +56,7 @@ for(i in 1:length(PSAlist)){
   
   for(j in 1:nrow(PSAtemp)){
     # download XML for curr yr observations
-    url<-paste0("https://famprod.nwcg.gov/wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&sig=&user=&type=N&start=01-Jan-",format(Sys.Date(),"%Y"),"&end=31-Dec-",format(Sys.Date(),"%Y"),"&time=&priority=&fmodel=16Y&sort=asc&ndays=")
+    url<-paste0("https://famprod.nwcg.gov/prod-wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&sig=&user=&type=N&start=01-Jan-",format(Sys.Date(),"%Y"),"&end=31-Dec-",format(Sys.Date(),"%Y"),"&time=&priority=&fmodel=16Y&sort=asc&ndays=")
     xData <- getURL(url)
     xmldoc <- xmlParse(xData)
     currYear <- xmlToDataFrame(xData)
@@ -75,7 +75,7 @@ for(i in 1:length(PSAlist)){
     stations[[j]]<-currYear[1,c("sta_nm","latitude","longitude")]
     
     # download XML for forecast observations
-    url<-paste0("https://famprod.nwcg.gov/wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&type=F&priority=&fmodel=16Y&sort=asc&ndays=7&start=",format(Sys.Date()-1,"%d-%b-%Y"))
+    url<-paste0("https://famprod.nwcg.gov/prod-wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&type=F&priority=&fmodel=16Y&sort=asc&ndays=7&start=",format(Sys.Date()-1,"%d-%b-%Y"))
     xData <- getURL(url)
     xmldoc <- xmlParse(xData)
     currYear <- xmlToDataFrame(xData)
