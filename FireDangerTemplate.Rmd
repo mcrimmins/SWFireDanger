@@ -1,0 +1,120 @@
+---
+pagetitle: 'Southwest U.S. NFDRS Charts'
+author: ''
+date: ''
+output:
+  html_document: default
+---
+
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1614595-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1614595-1');
+</script>
+</head> 
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<center> <h1> <b> Southwest U.S. NFDRS Charts </b> </h1> </center>
+
+```{r results='asis', echo=FALSE}
+cat(paste0("**Updated: ", noquote(format(Sys.time(), "%m-%d-%Y")),"**"))
+
+```
+
+The maps below are focused on capturing unique elements of the summer monsoon season across Arizona including total precipitation, intensity, and frequency of precipitation events. Maps are updated once a day from June 15 - September 30th using gridded precipitation data (nominally 4km by 4km) provided by the [National Weather Service Advanced Hydrologic Prediction Service](https://water.weather.gov/precip/). The gridded data provide a spatial estimate of true precipitation amounts across the region and should be interpreted with caution at very fine scales. More information on how the gridded data are produced can be found [here](http://water.weather.gov/precip/about.php).
+
+###### **Companion SW Monsoon climate monitoring products:**
+* [Southwest U.S. Monsoon Season Technical Summaries](https://cals.arizona.edu/climate/misc/stations/index.html)
+* [Southwest Summer Monsoon Season Precipitation Mapping (PRISM data)](https://cals.arizona.edu/climate/misc/SWMonsoonMaps/current/swus_monsoon.html)
+* [New Mexico Summer Monsoon Season Precipitation Mapping (NOAA-AHPS data)](https://cals.arizona.edu/climate/misc/monsoon/nm_monsoon.html)
+
+Email [Mike Crimmins](mailto:crimmins@email.arizona.edu) with questions and/or suggestions on how to improve these plots or ideas for additional variables
+
+------
+
+:::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 20px; "}
+
+::: {}
+
+[![ERC SW-01](./plots/SW-01_ERC.png)](./plots/SW-01_ERC.png)
+
+([ERC SW-01 Interactive](./plots/plotly/SW-01_ERC.html))
+
+------
+
+[![ERC SW-02](./plots/SW-02_ERC.png)](./plots/SW-02_ERC.png)
+
+([ERC SW-02 Interactive](./plots/plotly/SW-02_ERC.html))
+------
+
+[![ERC SW-03](./plots/SW-03_ERC.png)](./plots/SW-03_ERC.png)
+
+([ERC SW-03 Interactive](./plots/plotly/SW-03_ERC.html))
+
+------
+
+[![ERC SW-04](./plots/SW-04_ERC.png)](./plots/SW-04_ERC.png)
+
+([ERC SW-04 Interactive](./plots/plotly/SW-04_ERC.html))
+
+:::
+
+::: {}
+
+[![BI SW-01](./plots/SW-01_BI.png)](./plots/SW-01_BI.png)
+
+([BI SW-01 Interactive](./plots/plotly/SW-01_BI.html))
+
+------
+
+[![BI SW-02](./plots/SW-02_BI.png)](./plots/SW-02_BI.png)
+
+([BI SW-02 Interactive](./plots/plotly/SW-02_BI.html))
+------
+
+[![BI SW-03](./plots/SW-03_BI.png)](./plots/SW-03_BI.png)
+
+([BI SW-03 Interactive](./plots/plotly/SW-03_BI.html))
+------
+
+[![BI SW-04](./plots/SW-04_BI.png)](./plots/SW-04_BI.png)
+
+([BI SW-04 Interactive](./plots/plotly/SW-04_BI.html))
+
+:::
+
+::::
+
+-----
+
+###### **Other SW monsoon season resources:**
+* [Tucson - National Weather Service Monsoon Tracker](http://www.wrh.noaa.gov/twc/monsoon/monsoon.php)
+* [Overview of Arizona and the North American Monsoon System](https://extension.arizona.edu/pubs/arizona-north-american-monsoon-system)
+* [CLIMAS Monsoon Overview Page](http://www.climas.arizona.edu/sw-climate/monsoon)
+* [North American Monsoon Experiment Webpage](http://www.eol.ucar.edu/projects/name/)
+* [NOAA Climate Prediction Center Monsoon Monitoring](http://www.cpc.ncep.noaa.gov/products/Global_Monsoons/American_Monsoons/American_Monsoons.shtml)
+* [Arizona Regional WRF Model Forecasts](http://www.atmo.arizona.edu/index.php?section=weather&id=wrf)
+
+<div align="center">
+  <em>[Climate Science Applications Program - University of Arizona Cooperative Extension](http://cals.arizona.edu/climate/)</em>
+
+[![Latest](GitHub-Mark-32px.png)](https://github.com/mcrimmins/AZ_NM_MonsoonMaps)
+<em>[https://github.com/mcrimmins/AZ_NM_MonsoonMaps](https://github.com/mcrimmins/AZ_NM_MonsoonMaps)</em>
+
+</div>
+
+  
+------
+<div align="center">
+  <h6>
+  Last Updated: "`r format(Sys.time(), '%m-%d-%Y')`"© 2022 The Arizona Board of Regents. All contents copyrighted. All rights reserved.</h6>
+</div>
+

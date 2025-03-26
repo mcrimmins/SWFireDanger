@@ -2,7 +2,7 @@
 # pull data from WIMS and use FF+ reports for climatology
 # MAC 5/17/22
 
-library(rgdal)
+#library(rgdal)
 library(XML)
 library(RCurl)
 #library(dplyr)
@@ -10,9 +10,12 @@ library(ggplot2)
 #library(tidyr)
 library(tidyverse)
 library(magick)
+library(sf)
 
 # DEAL WITH PANDOC ERROR
-Sys.setenv(RSTUDIO_PANDOC="/usr/lib/rstudio-server/bin/pandoc")
+#Sys.setenv(RSTUDIO_PANDOC="/usr/lib/rstudio-server/bin/pandoc")
+Sys.setenv(RSTUDIO_PANDOC="/usr/bin/pandoc")
+
 
 #####
 # load supporting data from getFFStats.R
@@ -24,12 +27,24 @@ states <- map_data("state")
 #####
 # load spatial data
 # psa zones
-#psa<-rgdal::readOGR(dsn="/home/crimmins/RProjects/FireClimate/monsoonClimo/shapes", layer="National_Predictive_Service_Areas_(PSA)_Boundaries")
-psa<-rgdal::readOGR(dsn="/home/crimmins/RProjects/FireDangerPlots/shapefiles", layer="National_PSA_Current_20220112")
-sw_psa<-subset(psa, GACCName=="Southwest Coordination Center")
-# get psa centroids for factor order
-sw_psaDF<- cbind.data.frame(sw_psa, rgeos::gCentroid(sw_psa,byid=TRUE))
+# #psa<-rgdal::readOGR(dsn="/home/crimmins/RProjects/FireClimate/monsoonClimo/shapes", layer="National_Predictive_Service_Areas_(PSA)_Boundaries")
+# psa<-rgdal::readOGR(dsn="/home/crimmins/RProjects/FireDangerPlots/shapefiles", layer="National_PSA_Current_20220112")
+# sw_psa<-subset(psa, GACCName=="Southwest Coordination Center")
+# # get psa centroids for factor order
+# sw_psaDF<- cbind.data.frame(sw_psa, rgeos::gCentroid(sw_psa,byid=TRUE))
 #####
+
+###### New code with SF
+# Read the shapefile using sf
+psa <- st_read(dsn = "/home/crimmins/RProjects/FireDangerPlots/shapefiles", layer = "National_PSA_Current_20220112")
+# Subset for the Southwest Coordination Center
+sw_psa <- psa[psa$GACCName == "Southwest Coordination Center", ]
+# Compute centroids for factor order
+sw_psa_centroids <- st_centroid(sw_psa)
+# Convert to data frame and combine with PSA data
+sw_psaDF <- cbind.data.frame(sw_psa, st_coordinates(sw_psa_centroids))
+sw_psaDF <- st_drop_geometry(sw_psaDF)
+######
 
 PSAlist<-unique(SW_PSAs$PSA)
 
@@ -153,7 +168,7 @@ for(i in 1:length(PSAlist)){
     geom_line(data=tempCurr, aes(date,`ERC-Y`, color=stat), size=1.1)+
     #geom_line(data=temp, aes(date,`ERC-Y`, color=ERC_stat), size=1.5)+
     
-    scale_color_manual(values = c("goldenrod1","royalblue","limegreen","red","blue"))+
+    scale_color_manual(values = c("royalblue","blue","red","goldenrod1","limegreen"))+
     ggtitle(paste0("Energy Release Component (Fuel Model Y): PSA ", PSAlist[i]))+
     geom_hline(yintercept = p90erc, size=0.25, color="grey50")+
     geom_text(aes(x=as.Date(paste0(format(Sys.Date(),"%Y"),"-01-01"))+10, label="90%", y=p90erc+1.75),
@@ -200,7 +215,7 @@ for(i in 1:length(PSAlist)){
     geom_line(data=tempCurr, aes(date,`BI-Y`, color=stat), size=1.1)+
     #geom_line(data=temp, aes(date,`ERC-Y`, color=ERC_stat), size=1.5)+
     
-    scale_color_manual(values = c("goldenrod1","royalblue","limegreen","red","blue"))+
+    scale_color_manual(values = c("royalblue","blue","red","goldenrod1","limegreen"))+
     ggtitle(paste0("Burning Index (Fuel Model Y): PSA ", PSAlist[i]))+
     geom_hline(yintercept = p90bi, size=0.25, color="grey50")+
     geom_text(aes(x=as.Date(paste0(format(Sys.Date(),"%Y"),"-01-01"))+10, label="90%", y=p90bi+1.75),
@@ -224,15 +239,19 @@ for(i in 1:length(PSAlist)){
   # Make common plot parts
   # inset map:
   # zoomLev<-5
-  sw_psa_df<-fortify(sw_psa)
-  keyPSA_df<-fortify(subset(sw_psa, PSANationa==gsub("-","",PSAlist[i])))
+  #sw_psa_df<-fortify(sw_psa)
+  #keyPSA_df<-fortify(subset(sw_psa, PSANationa==gsub("-","",PSAlist[i])))
+  keyPSA_df<-(subset(sw_psa, PSANationa==gsub("-","",PSAlist[i])))
   #stationLatLon<-stations
   insetmap<-ggplot() +
     geom_polygon(data = states, aes(x = long, y = lat, group = group), fill=NA, color="black", size=0.1)  +
-    geom_polygon(data = sw_psa_df, aes(x = long, y = lat, group = group), fill="lightgrey", color="grey", alpha=0.8)  + # get the state border back on top
-    geom_polygon(data = keyPSA_df, aes(x = long, y = lat, group = group), fill="powderblue", color=NA, alpha=0.8) +
+    #geom_polygon(data = sw_psa_df, aes(x = long, y = lat, group = group), fill="lightgrey", color="grey", alpha=0.8)  + # get the state border back on top
+    #geom_polygon(data = keyPSA_df, aes(x = long, y = lat, group = group), fill="powderblue", color=NA, alpha=0.8) +
+    geom_sf(data = sw_psa, fill="lightgrey", color="grey", alpha=0.8)  + # get the state border back on top
+    geom_sf(data = keyPSA_df, fill="powderblue", color=NA, alpha=0.8) +
      #coord_fixed(xlim=c(out$meta$ll[1]-zoomLev, out$meta$ll[1]+zoomLev), ylim=c(out$meta$ll[2]-zoomLev, out$meta$ll[2]+zoomLev), ratio = 1) +
-    coord_fixed(xlim=c(-115, -102.5), ylim=c(31, 37.5), ratio = 1) +
+    #coord_fixed(xlim=c(-115, -102.5), ylim=c(31, 37.5), ratio = 1) +
+    coord_sf(xlim=c(-115, -102.5), ylim=c(31, 37.5)) +
     geom_point(data = stations, aes(x = longitude, y = latitude), size=0.5, color='red')+
     theme_bw(base_size=5)+
     theme(axis.title.x=element_blank(),
@@ -303,7 +322,7 @@ render(paste0('/home/crimmins/RProjects/FireDangerPlots/plots/FireDangerTemplate
 
 # #####
 
-source('/home/crimmins/RProjects/FireDangerPlots/pushNotify.R')
+#source('/home/crimmins/RProjects/FireDangerPlots/pushNotify.R')
 
 
 

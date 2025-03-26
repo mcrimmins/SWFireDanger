@@ -1,0 +1,254 @@
+---
+title: "`r pageTitle`"
+author: ''
+date: ''
+output:
+  html_document: default
+---
+
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1614595-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1614595-1');
+</script>
+</head> 
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- <center> <h1> <b> Southwest U.S. NFDRS Charts </b> </h1> </center> -->
+
+```{r results='asis', echo=FALSE}
+cat(paste0("**Updated: ", noquote(format(Sys.time(), "%m-%d-%Y")),"**"))
+
+```
+
+The charts below depict historic values of two standard fire danger indices part of the [National Fire Danger Rating System](https://www.firelab.org/project/national-fire-danger-rating-system): [Energy Release Component](https://www.wildfire.gov/page/energy-release-component-erc) and [Burning Index](https://www.wildfire.gov/page/burning-index). Charts are updated each evening using NFDRS data from the [Weather Information Management System](https://famit.nwcg.gov/applications/WIMS) and plotted against climatological information generated for each Southwest Predictive Service Area by FireFamily+ (2003-2021 reference period). 
+
+------
+
+:::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 20px; "}
+
+::: {}
+
+\center __Energy Release Component (Fuel Model Y)__ \center
+
+[![ERC SW-01](SW-01_ERC.png)](SW-01_ERC.png)
+
+[ERC SW-01 Interactive Chart](./plotly/SW-01_ERC.html)
+
+------
+
+[![ERC SW-02](SW-02_ERC.png)](SW-02_ERC.png)
+
+[ERC SW-02 Interactive Chart](./plotly/SW-02_ERC.html)
+
+------
+
+[![ERC SW-03](SW-03_ERC.png)](SW-03_ERC.png)
+
+[ERC SW-03 Interactive Chart](./plotly/SW-03_ERC.html)
+
+------
+
+[![ERC SW-04](SW-04_ERC.png)](SW-04_ERC.png)
+
+[ERC SW-04 Interactive Chart](./plotly/SW-04_ERC.html)
+
+------
+
+[![ERC SW-05](SW-05_ERC.png)](SW-05_ERC.png)
+
+[ERC SW-05 Interactive Chart](./plotly/SW-05_ERC.html)
+
+------
+
+[![ERC SW-06N](SW-06N_ERC.png)](SW-06N_ERC.png)
+
+[ERC SW-06N Interactive Chart](./plotly/SW-06N_ERC.html)
+
+------
+
+[![ERC SW-06S](SW-06S_ERC.png)](SW-06S_ERC.png)
+
+[ERC SW-06S Interactive Chart](./plotly/SW-06S_ERC.html)
+
+------
+
+[![ERC SW-07](SW-07_ERC.png)](SW-07_ERC.png)
+
+[ERC SW-07 Interactive Chart](./plotly/SW-07_ERC.html)
+
+------
+
+[![ERC SW-08](SW-08_ERC.png)](SW-08_ERC.png)
+
+[ERC SW-08 Interactive Chart](./plotly/SW-08_ERC.html)
+
+------
+
+[![ERC SW-09](SW-09_ERC.png)](SW-09_ERC.png)
+
+[ERC SW-09 Interactive Chart](./plotly/SW-09_ERC.html)
+
+------
+
+[![ERC SW-10](SW-10_ERC.png)](SW-10_ERC.png)
+
+[ERC SW-10 Interactive Chart](./plotly/SW-10_ERC.html)
+
+------
+
+[![ERC SW-11](SW-11_ERC.png)](SW-11_ERC.png)
+
+[ERC SW-11 Interactive Chart](./plotly/SW-11_ERC.html)
+
+------
+
+[![ERC SW-12](SW-12_ERC.png)](SW-12_ERC.png)
+
+[ERC SW-12 Interactive Chart](./plotly/SW-12_ERC.html)
+
+------
+
+[![ERC SW-13](SW-13_ERC.png)](SW-13_ERC.png)
+
+[ERC SW-13 Interactive Chart](./plotly/SW-13_ERC.html)
+
+------
+
+[![ERC SW-14N](SW-14N_ERC.png)](SW-14N_ERC.png)
+
+[ERC SW-14N Interactive Chart](./plotly/SW-14N_ERC.html)
+
+:::
+
+::: {}
+
+\center __Burning Index (Fuel Model Y)__ \center
+
+[![BI SW-01](SW-01_BI.png)](SW-01_BI.png)
+
+[BI SW-01 Interactive Chart](./plotly/SW-01_BI.html)
+
+------
+
+[![BI SW-02](SW-02_BI.png)](SW-02_BI.png)
+
+[BI SW-02 Interactive Chart](./plotly/SW-02_BI.html)
+
+------
+
+[![BI SW-03](SW-03_BI.png)](SW-03_BI.png)
+
+[BI SW-03 Interactive Chart](./plotly/SW-03_BI.html)
+
+------
+
+[![BI SW-04](SW-04_BI.png)](SW-04_BI.png)
+
+[BI SW-04 Interactive Chart](./plotly/SW-04_BI.html)
+
+------
+
+[![BI SW-05](SW-05_BI.png)](SW-05_BI.png)
+
+[BI SW-05 Interactive Chart](./plotly/SW-05_BI.html)
+
+------
+
+[![BI SW-06N](SW-06N_BI.png)](SW-06N_BI.png)
+
+[BI SW-06N Interactive Chart](./plotly/SW-06N_BI.html)
+
+------
+
+[![BI SW-06S](SW-06S_BI.png)](SW-06S_BI.png)
+
+[BI SW-06S Interactive Chart](./plotly/SW-06S_BI.html)
+
+------
+
+[![BI SW-07](SW-07_BI.png)](SW-07_BI.png)
+
+[BI SW-07 Interactive Chart](./plotly/SW-07_BI.html)
+
+------
+
+[![BI SW-08](SW-08_BI.png)](SW-08_BI.png)
+
+[BI SW-08 Interactive Chart](./plotly/SW-08_BI.html)
+
+------
+
+[![BI SW-09](SW-09_BI.png)](SW-09_BI.png)
+
+[BI SW-09 Interactive Chart](./plotly/SW-09_BI.html)
+
+------
+
+[![BI SW-10](SW-10_BI.png)](SW-10_BI.png)
+
+[BI SW-10 Interactive Chart](./plotly/SW-10_BI.html)
+
+------
+
+[![BI SW-11](SW-11_BI.png)](SW-11_BI.png)
+
+[BI SW-11 Interactive Chart](./plotly/SW-11_BI.html)
+
+------
+
+[![BI SW-12](SW-12_BI.png)](SW-12_BI.png)
+
+[BI SW-12 Interactive Chart](./plotly/SW-12_BI.html)
+
+------
+
+[![BI SW-13](SW-13_BI.png)](SW-13_BI.png)
+
+[BI SW-13 Interactive Chart](./plotly/SW-13_BI.html)
+
+------
+
+[![BI SW-14N](SW-14N_BI.png)](SW-14N_BI.png)
+
+[BI SW-14N Interactive Chart](./plotly/SW-14N_BI.html)
+
+:::
+
+::::
+
+-----
+
+###### **Other SW Fire Danger Information Resources:**
+* [Energy Release Component Charts - Southwest Coordination Center](https://gacc.nifc.gov/swcc/predictive/fuels_fire-danger/nfdrs_charts/Areawide.htm)
+* [Burn Period Tracker - University of Arizona](https://cals.arizona.edu/climate/SWBurnPeriod/)
+* [Fire Weather Outlooks - NOAA-SPC](https://www.spc.noaa.gov/products/fire_wx/)
+* [Fire Potential Outlook - NIFC](https://www.nifc.gov/nicc/predictive/outlooks/outlooks.htm)
+* [Fuels and Fire Danger - NIFC](https://www.predictiveservices.nifc.gov/fuels_fire-danger/fuels_fire-danger.htm)
+* [Fire Danger Rating - USFS-WFAS](https://www.wfas.net/index.php/fire-danger-rating-fire-potential--danger-32)
+
+Email [Mike Crimmins](mailto:crimmins@email.arizona.edu) with questions and/or suggestions.
+
+<div align="center">
+  <em>[Climate Science Applications Program - University of Arizona Cooperative Extension](http://cals.arizona.edu/climate/)</em>
+
+[![Latest](GitHub-Mark-32px.png)](https://github.com/mcrimmins/SWFireDanger)
+<em>[https://github.com/mcrimmins/SWFireDanger](https://github.com/mcrimmins/SWFireDanger)</em>
+
+</div>
+
+  
+------
+<div align="center">
+  <h6>
+  Last Updated: "`r format(Sys.time(), '%m-%d-%Y')`"© 2024 The Arizona Board of Regents. All contents copyrighted. All rights reserved.</h6>
+</div>
+
