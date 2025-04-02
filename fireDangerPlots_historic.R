@@ -64,7 +64,7 @@ for(l in 1:length(yrs)){
             to=paste0("/home/crimmins/RProjects/FireDangerPlots/archive/",arcYR), overwrite = TRUE)
   file.copy(from = "/home/crimmins/RProjects/FireDangerPlots/archive/GitHub-Mark-32px.png", 
             to=paste0("/home/crimmins/RProjects/FireDangerPlots/archive/",arcYR), overwrite = TRUE)
-  file.copy(from = "/home/crimmins/RProjects/FireDangerPlots/archive/CLIMAS_UACOOP_SWCC_horiz.png", 
+  file.copy(from = "/home/crimmins/RProjects/logos/CLIMAS_UACOOP_SWCC_horiz.png", 
             to=paste0("/home/crimmins/RProjects/FireDangerPlots/archive/",arcYR), overwrite = TRUE)
   
   
@@ -299,7 +299,7 @@ for(l in 1:length(yrs)){
         # Call back the plot
         plot <- image_read(paste0("/home/crimmins/RProjects/FireDangerPlots/archive/",arcYR,"/",PSAlist[i],"_ERC.png"))
         # And bring in a logo
-        logo_raw <- image_read("/home/crimmins/RProjects/BurnPeriodTracker/CLIMAS_UACOOP_SWCC_horiz.png") 
+        logo_raw <- image_read("/home/crimmins/RProjects/logos/CLIMAS_UACOOP_SWCC_horiz.png") 
         logo <- image_resize(logo_raw, geometry_size_percent(width=65,height = 65))
         # Stack them on top of each other
         final_plot <- image_composite(plot, logo, offset = "+130+1600")
@@ -318,7 +318,7 @@ for(l in 1:length(yrs)){
         # Call back the plot
         plot <- image_read(paste0("/home/crimmins/RProjects/FireDangerPlots/archive/",arcYR,"/",PSAlist[i],"_BI.png"))
         # And bring in a logo
-        logo_raw <- image_read("/home/crimmins/RProjects/BurnPeriodTracker/CLIMAS_UACOOP_SWCC_horiz.png") 
+        logo_raw <- image_read("/home/crimmins/RProjects/logos/CLIMAS_UACOOP_SWCC_horiz.png") 
         logo <- image_resize(logo_raw, geometry_size_percent(width=65,height = 65))
         # Stack them on top of each other
         final_plot <- image_composite(plot, logo, offset = "+130+1600")
