@@ -21,6 +21,9 @@ Sys.setenv(RSTUDIO_PANDOC="/usr/bin/pandoc")
 # load supporting data from getFFStats.R
 load("/home/crimmins/RProjects/FireDangerPlots/ff_report_stats.RData")
 
+# temporarily remove down stations from PSA calculations
+SW_PSAs<-subset(SW_PSAs, !(NAME %in% c("Batdraw")))
+
 # ggplot inset data
 states <- map_data("state")
 
@@ -68,7 +71,6 @@ for(i in 1:length(PSAlist)){
   # curr year
   #format(Sys.Date(),"%Y")
   
-  
   for(j in 1:nrow(PSAtemp)){
     # download XML for curr yr observations
     url<-paste0("https://famprod.nwcg.gov/prod-wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&sig=&user=&type=N&start=01-Jan-",format(Sys.Date(),"%Y"),"&end=31-Dec-",format(Sys.Date(),"%Y"),"&time=&priority=&fmodel=16Y&sort=asc&ndays=")
@@ -93,18 +95,57 @@ for(i in 1:length(PSAlist)){
     url<-paste0("https://famprod.nwcg.gov/prod-wims/xsql/nfdrs.xsql?stn=",PSAtemp$STNID[j],"&type=F&priority=&fmodel=16Y&sort=asc&ndays=7&start=",format(Sys.Date()-1,"%d-%b-%Y"))
     xData <- getURL(url)
     xmldoc <- xmlParse(xData)
-    currYear <- xmlToDataFrame(xData)
+    
+
+    
+    ##### old code that breaks with empty forecast info at station
+    #
+    # currYear <- xmlToDataFrame(xData)
     # convert from factors to numeric
-    col.names <- c("sta_id","latitude","longitude","nfdr_tm","one_hr","ten_hr","hu_hr","th_hr","xh_hr","ic","kbdi","sc","ec","bi","lr","lo","hr","ho",
-                   "fl","hrb","wdy","herb_gsi","woody_gsi")
-    currYear[col.names] <- sapply(currYear[col.names],as.character)
-    currYear[col.names] <- sapply(currYear[col.names],as.numeric)
-    # add in date field
-    currYear$date<-as.Date(as.character(currYear$nfdr_dt),"%m/%d/%Y")
-    # get ERC
-    fcstERC[[j]] <- currYear[,c("date","ec")]                 
-    # get BI
-    fcstBI[[j]] <- currYear[,c("date","bi")] 
+    # col.names <- c("sta_id","latitude","longitude","nfdr_tm","one_hr","ten_hr","hu_hr","th_hr","xh_hr","ic","kbdi","sc","ec","bi","lr","lo","hr","ho",
+    #                "fl","hrb","wdy","herb_gsi","woody_gsi")
+    # currYear[col.names] <- sapply(currYear[col.names],as.character)
+    # currYear[col.names] <- sapply(currYear[col.names],as.numeric)
+    # # add in date field
+    # currYear$date<-as.Date(as.character(currYear$nfdr_dt),"%m/%d/%Y")
+    # # get ERC
+    # fcstERC[[j]] <- currYear[,c("date","ec")]                 
+    # # get BI
+    # fcstBI[[j]] <- currYear[,c("date","bi")] 
+    #####
+    
+    ##### new code to deal with empty forecast info at station
+    # Parse XML into a dataframe
+    currYear <- tryCatch(xmlToDataFrame(xData), error = function(e) data.frame())
+    
+    # Define expected columns
+    col.names <- c("sta_id","latitude","longitude","nfdr_tm","one_hr","ten_hr","hu_hr","th_hr","xh_hr",
+                   "ic","kbdi","sc","ec","bi","lr","lo","hr","ho",
+                   "fl","hrb","wdy","herb_gsi","woody_gsi","nfdr_dt")
+    
+    # If currYear is empty, create placeholder with NA
+    if (nrow(currYear) == 0) {
+      currYear <- as.data.frame(matrix(NA, nrow = 1, ncol = length(col.names)))
+      names(currYear) <- col.names
+    } else {
+      # Ensure all expected columns exist
+      missing.cols <- setdiff(col.names, names(currYear))
+      if (length(missing.cols) > 0) {
+        for (mc in missing.cols) currYear[[mc]] <- NA
+      }
+    }
+    
+    # Convert from factors/characters to numeric for numeric fields
+    num.cols <- setdiff(col.names, "nfdr_dt") # keep date string for conversion
+    currYear[num.cols] <- lapply(currYear[num.cols], function(x) as.numeric(as.character(x)))
+    
+    # Add in date field
+    currYear$date <- as.Date(as.character(currYear$nfdr_dt), "%m/%d/%Y")
+    
+    # Get ERC and BI safely
+    fcstERC[[j]] <- currYear[, c("date", "ec")]
+    fcstBI[[j]]  <- currYear[, c("date", "bi")]
+    #####
     
   }
 
