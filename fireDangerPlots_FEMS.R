@@ -22,7 +22,7 @@ Sys.setenv(RSTUDIO_PANDOC="/usr/bin/pandoc")
 
 #####
 # load supporting data from getFFStats.R
-load("/home/crimmins/RProjects/FireDangerPlots/ff_report_stats.RData")
+load("/home/crimmins/RProjects/FireDangerPlots/ff_report_stats_new.RData")
 
 # read in station metadata
 station_metadata<- read_csv("station_metadata_FEMS3_042225.csv")
