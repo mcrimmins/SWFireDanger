@@ -25,7 +25,7 @@ Sys.setenv(RSTUDIO_PANDOC="/usr/bin/pandoc")
 load("/home/crimmins/RProjects/FireDangerPlots/ff_report_stats_new.RData")
 
 # read in station metadata
-station_metadata<- read_csv("station_metadata_FEMS3_042225.csv")
+station_metadata<- read_csv("/home/crimmins/RProjects/FireDangerPlots/station_metadata_FEMS3_042225.csv")
 
 # temporarily remove down stations from PSA calculations
 SW_PSAs<-subset(SW_PSAs, !(NAME %in% c("Batdraw")))
